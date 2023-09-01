@@ -1,7 +1,8 @@
 # propmenu
 Standalone prop spawner menu for FiveM
 
-Use with /propmenu
+Open with /propmenu
+
 Check client.lua for how to add props
 Find prop models: https://gta-objects.xyz/objects
 
