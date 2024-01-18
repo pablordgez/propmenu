@@ -6,7 +6,6 @@ local removeMenu = _menuPool:AddSubMenu(mainMenu, "Remove props")
 local noProps = NativeUI.CreateItem("No props spawned", "No props spawned")
 local spawnedProps = {}
 removeMenu:AddItem(noProps)
-local menuIndex = 0
 _menuPool:MouseEdgeEnabled(false)
 
 function createObject(id)
@@ -44,22 +43,21 @@ end
 
 function createRemoveMenu(object, name)
     local submenu = _menuPool:AddSubMenu(removeMenu, name)
-    if menuIndex == 0 then
+    -- if there were no props before, remove the button that says no props
+    if #spawnedProps == 1 then
         removeMenu:RemoveItemAt(1)
     end
     _menuPool:MouseEdgeEnabled(false)
     local yes = NativeUI.CreateItem("Yes", "Remove the prop")
     local no = NativeUI.CreateItem("No", "Go back")
-    menuIndex = menuIndex + 1
     
     submenu:AddItem(yes)
     submenu:AddItem(no)
     submenu.OnItemSelect = function(sender, item, index)
         if item == yes then
             deleteObject(object)
-            menuIndex = menuIndex - 1
             submenu:GoBack()
-            if menuIndex == 0 then
+            if #spawnedProps == 1 then
                 removeMenu:AddItem(noProps)
             end
             local submenuIndex = 0
